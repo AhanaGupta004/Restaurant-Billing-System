@@ -1,6 +1,6 @@
-# 🍽️ Restaurant Billing System (C++ + Web)
+#  Restaurant Billing System (C++ + Web)
 
-## 📌 Overview
+##  Overview
 
 This project presents a Restaurant Billing System implemented in two different ways:
 
@@ -11,7 +11,7 @@ Both modules are independent and demonstrate different approaches to solving the
 
 ---
 
-## 🎯 Objectives
+##  Objectives
 
 * Automate restaurant billing process
 * Reduce manual calculation errors
@@ -20,9 +20,9 @@ Both modules are independent and demonstrate different approaches to solving the
 
 ---
 
-## 🚀 Features
+##  Features
 
-### 💻 C++ Console Version
+###  C++ Console Version
 
 * Menu management (add, modify, delete items)
 * Customer detail entry
@@ -32,7 +32,7 @@ Both modules are independent and demonstrate different approaches to solving the
 
 ---
 
-### 🌐 Web Version
+###  Web Version
 
 * Interactive user interface
 * Admin login system
@@ -42,16 +42,16 @@ Both modules are independent and demonstrate different approaches to solving the
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 * **C++** (File Handling, Console UI)
 * **HTML, CSS, JavaScript** (Frontend Web Development)
 
 ---
 
-## ▶️ How to Run
+##  How to Run
 
-### 🔹 C++ Version
+###  C++ Version
 
 1. Compile:
 
@@ -67,7 +67,7 @@ g++ rest.cpp -o app
 
 ---
 
-### 🔹 Web Version
+###  Web Version
 
 1. Open `index.html` in any browser
 2. Use login:
@@ -77,7 +77,7 @@ g++ rest.cpp -o app
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 restaurant-billing-system/
@@ -94,7 +94,7 @@ restaurant-billing-system/
 ```
 ---
 
-## ⚠️ Limitations
+##  Limitations
 
 * No database (uses files and localStorage)
 * No real integration between C++ and Web modules
@@ -103,7 +103,7 @@ restaurant-billing-system/
 
 ---
 
-## 🔮 Future Scope
+##  Future Scope
 
 * Integration using backend (Node.js / API)
 * Database support (MySQL / MongoDB)
@@ -112,6 +112,6 @@ restaurant-billing-system/
 
 ---
 
-## 👩‍💻 Author
+##  Author
 
 **Ahana Gupta**
