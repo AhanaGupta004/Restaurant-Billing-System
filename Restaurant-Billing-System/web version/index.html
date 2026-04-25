@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savoria | Premium Dining</title>
+    <meta name="description" content="Modern restaurant billing system">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Ionicons for modern icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="toast-container"></div>
+
+    <div id="app">
+        <!-- MAIN LANDING VIEW -->
+        <div id="view-landing" class="view active">
+            <div class="landing-content glass-panel">
+                <div class="logo-container">
+                    <ion-icon name="restaurant-outline"></ion-icon>
+                    <h1>Savoria</h1>
+                    <p>Modern Billing System</p>
+                </div>
+                <form id="unified-login-form" class="pos-form" style="text-align: left; margin-top: 2rem;">
+                    <div class="form-group">
+                        <label>Login ID / Name</label>
+                        <input type="text" id="login-id" required placeholder="User or 'admin'">
+                    </div>
+                    <div class="form-group">
+                        <label>Password / Mobile</label>
+                        <input type="password" id="login-pass" required placeholder="Mobile No. or PIN">
+                    </div>
+                    <button type="submit" class="btn primary-btn pulse-btn w-100 mt-1">
+                        <ion-icon name="log-in-outline"></ion-icon> Authenticate
+                    </button>
+                    <button type="button" id="btn-find-bill" class="btn secondary-btn w-100 mt-1">
+                        <ion-icon name="search-outline"></ion-icon> Find My Bill
+                    </button>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+                        <b>Admin:</b> enter 'admin' & '2004'<br><b>Customer:</b> enter Your Name & 10-digit Mobile
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- OLD ADMIN LOGIN REMOVED -->
+
+        <!-- FIND BILL MODAL -->
+        <div id="modal-find-bill" class="modal hidden">
+            <div class="modal-content glass-panel">
+                <button class="close-modal"><ion-icon name="close-outline"></ion-icon></button>
+                <h2>Download Receipt</h2>
+                <form id="form-find-bill" class="pos-form">
+                    <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">Enter your details to retrieve a past bill.</p>
+                    <div class="form-group">
+                        <label>Order ID or Mobile Number</label>
+                        <input type="text" id="find-bill-query" required placeholder="e.g. 9876543210 or 45123">
+                    </div>
+                    <button type="submit" class="btn primary-btn w-100 mt-1">Search Records</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- EDIT ITEM MODAL -->
+        <div id="modal-edit-item" class="modal hidden">
+            <div class="modal-content glass-panel">
+                <button class="close-modal"><ion-icon name="close-outline"></ion-icon></button>
+                <h2>Edit Menu Item</h2>
+                <form id="form-edit-item" class="pos-form">
+                    <input type="hidden" id="edit-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Item Type</label>
+                            <select id="edit-type" required>
+                                <option value="f">Food</option>
+                                <option value="d">Drink</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="edit-category" required>
+                                <option value="veg">Vegetarian</option>
+                                <option value="non-veg">Non-Vegetarian</option>
+                                <option value="drink">Drink</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Item Name</label>
+                        <input type="text" id="edit-name" required placeholder="Item Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Price (₹)</label>
+                        <input type="number" id="edit-price" min="1" required placeholder="Price">
+                    </div>
+                    <button type="submit" class="btn primary-btn w-100 mt-2">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ADMIN DASHBOARD -->
+        <div id="view-admin" class="view">
+            <nav class="sidebar glass-panel">
+                <div class="logo">
+                    <ion-icon name="restaurant"></ion-icon> Savoria Admin
+                </div>
+                <ul class="nav-links">
+                    <li data-target="admin-menu" class="active"><ion-icon name="book-outline"></ion-icon> Manage Menu
+                    </li>
+                    <li data-target="admin-add"><ion-icon name="add-circle-outline"></ion-icon> Add Item</li>
+                    <li data-target="admin-orders"><ion-icon name="receipt-outline"></ion-icon> View Orders</li>
+                    <li data-target="admin-system"><ion-icon name="hardware-chip-outline"></ion-icon> System</li>
+                </ul>
+                <button id="btn-admin-logout" class="btn logout-btn"><ion-icon name="log-out-outline"></ion-icon>
+                    Logout</button>
+            </nav>
+            <main class="dashboard-content">
+                <header class="dashboard-header glass-panel">
+                    <h2>Menu Management</h2>
+                    <div class="stats">
+                        <span id="stat-total-items">0 Items</span>
+                    </div>
+                </header>
+
+                <div id="admin-menu" class="admin-section active glass-panel">
+                    <div class="table-container">
+                        <table id="admin-menu-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Category</th>
+                                    <th>Price (₹)</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="admin-add" class="admin-section hidden glass-panel">
+                    <h3>Create New Menu Item</h3>
+                    <form id="form-add-item" class="pos-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Item Type</label>
+                                <select id="add-type" required>
+                                    <option value="f">Food</option>
+                                    <option value="d">Drink</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select id="add-category" required>
+                                    <option value="veg">Vegetarian</option>
+                                    <option value="non-veg">Non-Vegetarian</option>
+                                    <option value="drink" disabled style="display:none;">Drink</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Item Name</label>
+                            <input type="text" id="add-name" required placeholder="e.g. Classic Burger">
+                        </div>
+                        <div class="form-group">
+                            <label>Price (₹)</label>
+                            <input type="number" id="add-price" min="1" required placeholder="e.g. 150">
+                        </div>
+                        <button type="submit" class="btn primary-btn">Add to Menu</button>
+                    </form>
+                </div>
+
+                <div id="admin-orders" class="admin-section hidden glass-panel">
+                    <h3>Customer Order History</h3>
+                    <div class="table-container mt-2">
+                        <table id="admin-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Mobile</th>
+                                    <th>Date</th>
+                                    <th>Total (₹)</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="admin-system" class="admin-section hidden glass-panel">
+                    <h3>System Operations</h3>
+                    <p>Manage the underlying data of the billing system.</p>
+                    <div class="system-actions">
+                        <button id="btn-clear-menu" class="btn danger-btn"><ion-icon name="trash-outline"></ion-icon>
+                            Clear All Menu Items</button>
+                        <button id="btn-reset-default" class="btn secondary-btn"><ion-icon
+                                name="refresh-outline"></ion-icon> Reset to Default Menu</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- OLD CUSTOMER DETAILS REMOVED -->
+
+        <!-- CUSTOMER ORDER VIEW -->
+        <div id="view-customer-order" class="view">
+            <div class="order-layout">
+                <div class="menu-browser">
+                    <header class="glass-panel">
+                        <h2>Our Menu</h2>
+                        <div class="filters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="veg">Veg</button>
+                            <button class="filter-btn" data-filter="non-veg">Non-Veg</button>
+                            <button class="filter-btn" data-filter="drink">Drinks</button>
+                        </div>
+                    </header>
+                    <div id="customer-menu-grid" class="menu-grid">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+
+                <div class="cart-sidebar glass-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border);">
+                        <h3 style="border-bottom: none;">Current Order</h3>
+                        <button id="btn-customer-logout" class="icon-btn delete" style="margin-right: 1.5rem; font-size: 1.5rem;" title="Cancel Order & Logout">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </button>
+                    </div>
+                    <div class="customer-info" id="display-cust-info">
+                        <!-- Name & Phone -->
+                    </div>
+                    <div class="cart-items" id="cart-container">
+                        <div class="empty-cart">
+                            <ion-icon name="cart-outline"></ion-icon>
+                            <p>Your cart is empty</p>
+                        </div>
+                        <!-- Cart items injected here -->
+                    </div>
+                    <div class="cart-summary">
+                        <div class="summary-line">
+                            <span>Subtotal</span>
+                            <span id="cart-subtotal">₹0.00</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>GST (12%)</span>
+                            <span id="cart-gst">₹0.00</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>Service Tax (6%)</span>
+                            <span id="cart-st">₹0.00</span>
+                        </div>
+                        <div class="summary-line total">
+                            <span>Total</span>
+                            <span id="cart-total">₹0.00</span>
+                        </div>
+                        <button id="btn-checkout" class="btn primary-btn w-100 checkout-btn" disabled>Place
+                            Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INVOICE MODAL -->
+        <div id="modal-invoice" class="modal hidden">
+            <div class="invoice-wrapper print-area">
+                <button class="close-modal no-print" onclick="document.getElementById('modal-invoice').classList.add('hidden')">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+                <div class="invoice-header">
+                    <h2>SAVORIA</h2>
+                    <p>BCA-A, JCC</p>
+                    <p>Developed by Ahana Gupta</p>
+                    <div class="invoice-divider"></div>
+                    <h3>TAX INVOICE</h3>
+                </div>
+                <div class="invoice-details" id="invoice-details">
+                    <!-- ID, Name, Phone -->
+                </div>
+                <div class="invoice-divider"></div>
+                <table class="invoice-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Amt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoice-items">
+                        <!-- Injected -->
+                    </tbody>
+                </table>
+                <div class="invoice-divider"></div>
+                <div class="invoice-totals">
+                    <div class="inv-line"><span>Subtotal:</span> <span id="inv-subtotal"></span></div>
+                    <div class="inv-line"><span>GST (12%):</span> <span id="inv-gst"></span></div>
+                    <div class="inv-line"><span>Service (6%):</span> <span id="inv-st"></span></div>
+                    <div class="inv-line inv-grand"><span>GRAND TOTAL:</span> <span id="inv-total"></span></div>
+                </div>
+                <div class="invoice-footer">
+                    <p>Thank You For Your Visit!</p>
+                </div>
+                <button id="btn-close-invoice" class="btn primary-btn no-print w-100 mt-2">Finish & Start New</button>
+                <button id="btn-print-invoice" class="btn secondary-btn no-print w-100 mt-1"><ion-icon
+                        name="print-outline"></ion-icon> Print</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
