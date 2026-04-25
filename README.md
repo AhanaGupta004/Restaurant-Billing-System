@@ -88,7 +88,7 @@ restaurant-billing-system/
 │   ├── style.css
 │   └── app.js
 │
-└── README.md
+├── README.md
 
 
 ---
