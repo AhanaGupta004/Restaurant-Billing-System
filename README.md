@@ -55,15 +55,13 @@ Both modules are independent and demonstrate different approaches to solving the
 
 1. Compile:
 
-```bash
 g++ rest.cpp -o app
-```
+
 
 2. Run:
 
-```bash
 ./app
-```
+
 
 ---
 
