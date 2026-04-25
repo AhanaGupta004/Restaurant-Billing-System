@@ -77,7 +77,7 @@ g++ rest.cpp -o app
 
 ##  Project Structure
 
-```
+
 restaurant-billing-system/
 │
 ├── cpp-version/
@@ -89,7 +89,7 @@ restaurant-billing-system/
 │   └── app.js
 │
 └── README.md
-```
+
 ---
 
 ##  Limitations
