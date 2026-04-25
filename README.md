@@ -63,7 +63,7 @@ g++ rest.cpp -o app
 ./app
 
 
----
+--
 
 ###  Web Version
 
@@ -89,6 +89,7 @@ restaurant-billing-system/
 │   └── app.js
 │
 └── README.md
+
 
 ---
 
