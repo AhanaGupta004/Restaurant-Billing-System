@@ -63,7 +63,7 @@ g++ rest.cpp -o app
 ./app
 
 
---
+---
 
 ###  Web Version
 
@@ -77,7 +77,7 @@ g++ rest.cpp -o app
 
 ##  Project Structure
 
-
+```
 restaurant-billing-system/
 │
 ├── cpp-version/
@@ -88,8 +88,8 @@ restaurant-billing-system/
 │   ├── style.css
 │   └── app.js
 │
-├── README.md
-
+└── README.md
+```
 
 ---
 
