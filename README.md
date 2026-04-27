@@ -1,4 +1,4 @@
-#  Restaurant Billing System (C++ + Web)
+#  Restaurant Billing System  (C++ + Web)
 
 ##  Overview
 
@@ -114,3 +114,4 @@ restaurant-billing-system/
 ##  Author
 
 **Ahana Gupta**
+
