@@ -1,4 +1,4 @@
-#  Restaurant Billing System  (C++ + Web)
+#  Restaurant Billing System (C++ + Web)
 
 ##  Overview
 
