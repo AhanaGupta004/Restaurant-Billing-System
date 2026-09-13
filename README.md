@@ -11,7 +11,10 @@ Both modules are independent and demonstrate different approaches to solving the
 
 ---
 
+
 ##  Objectives
+
+
 
 * Automate restaurant billing process
 * Reduce manual calculation errors
