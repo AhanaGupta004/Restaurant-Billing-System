@@ -48,7 +48,7 @@ Both modules are independent and demonstrate different approaches to solving the
 ##  Technologies Used
 
 * **C++** (File Handling, Console UI)
-* **HTML, CSS, JavaScript** (Frontend Web Development)
+* **HTML, CSS, Bootstrap, JavaScript** (Frontend Web Development)
 
 ---
 
